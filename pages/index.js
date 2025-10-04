@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import { Toaster } from 'sonner'
-import UploadForm from './components/UploadForm'
-import ImageDisplay from './components/ImageDisplay'
+import UploadForm from '../src/components/UploadForm'
+import ImageDisplay from '../src/components/ImageDisplay'
 
-// Backend URL - change this to your deployed backend URL
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'
-
-function App() {
+export default function Home() {
   const [originalImage, setOriginalImage] = useState(null)
   const [processedImage, setProcessedImage] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [selectedPhase, setSelectedPhase] = useState('')
+
+  // Backend URL - use environment variable or default
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000'
 
   const handleImageProcessed = (original, processed, phase) => {
     setOriginalImage(original)
@@ -53,8 +53,6 @@ function App() {
               setIsLoading={setIsLoading}
               backendUrl={BACKEND_URL}
             />
-            
-     
           </div>
 
           {/* Results Section */}
@@ -67,16 +65,10 @@ function App() {
             />
           </div>
         </div>
-
- 
       </main>
-
-   
 
       {/* Toast Notifications */}
       <Toaster />
     </div>
   )
 }
-
-export default App
