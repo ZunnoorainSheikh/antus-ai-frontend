@@ -8,7 +8,10 @@ const nextConfig = {
     unoptimized: true
   },
   basePath: process.env.NODE_ENV === 'production' ? '/antus-ai-frontend' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/antus-ai-frontend/' : ''
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/antus-ai-frontend/' : '',
+  experimental: {
+    optimizeCss: true
+  }
 }
 
 module.exports = nextConfig
