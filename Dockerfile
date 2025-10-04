@@ -18,15 +18,14 @@ RUN npm run build
 # Production stage
 FROM nginx:alpine
 
-# Copy built app to nginx
-COPY --from=build /app/dist /usr/share/nginx/html
+# Copy built app to nginx (Next.js static export goes to 'out' folder)
+COPY --from=build /app/out /usr/share/nginx/html
 
 # Copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf.template
 
 # Expose port (Railway will set PORT env variable)
 EXPOSE $PORT
 
-# Start nginx with environment port
-CMD ["sh", "-c", "envsubst '$$PORT' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
-CMD ["nginx", "-g", "daemon off;"]
+# Start nginx with environment port substitution
+CMD ["sh", "-c", "envsubst '$$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
