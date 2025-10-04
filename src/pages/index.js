@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Toaster } from 'sonner'
-import UploadForm from '../src/components/UploadForm'
-import ImageDisplay from '../src/components/ImageDisplay'
+import UploadForm from '../components/UploadForm'
+import ImageDisplay from '../components/ImageDisplay'
 
 export default function Home() {
   const [originalImage, setOriginalImage] = useState(null)
