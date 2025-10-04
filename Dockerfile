@@ -24,8 +24,9 @@ COPY --from=build /app/dist /usr/share/nginx/html
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 80
-EXPOSE 80
+# Expose port (Railway will set PORT env variable)
+EXPOSE $PORT
 
-# Start nginx
+# Start nginx with environment port
+CMD ["sh", "-c", "envsubst '$$PORT' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
 CMD ["nginx", "-g", "daemon off;"]
